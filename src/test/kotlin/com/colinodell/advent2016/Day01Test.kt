@@ -8,14 +8,12 @@ import org.junit.jupiter.api.Test
 
 @DisplayName("Day 1")
 class Day01Test {
-    private val sample = listOf("R5", "L5", "R5", "R3")
-
     @Nested
     @DisplayName("Part 1")
     inner class Part1 {
         @Test
         fun `Matches Sample Data`() {
-            val answer = Day01(sample).solvePart1()
+            val answer = Day01(listOf("R5", "L5", "R5", "R3")).solvePart1()
             assertThat(answer).isEqualTo(12)
         }
 
@@ -23,6 +21,22 @@ class Day01Test {
         fun `Matches Actual Data`() {
             val answer = Day01(resourceAsListOfString("day01.txt", ", ")).solvePart1()
             assertThat(answer).isEqualTo(253)
+        }
+    }
+
+    @Nested
+    @DisplayName("Part 2")
+    inner class Part2 {
+        @Test
+        fun `Matches Sample Data`() {
+            val answer = Day01(listOf("R8", "R4", "R4", "R8")).solvePart2()
+            assertThat(answer).isEqualTo(4)
+        }
+
+        @Test
+        fun `Matches Actual Data`() {
+            val answer = Day01(resourceAsListOfString("day01.txt", ", ")).solvePart2()
+            assertThat(answer).isEqualTo(126)
         }
     }
 }
