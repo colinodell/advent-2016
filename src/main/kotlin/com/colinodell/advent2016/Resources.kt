@@ -17,6 +17,9 @@ internal object Resources {
     fun resourceAsListOfString(fileName: String): List<String> =
             File(fileName.toURI()).readLines()
 
+    fun resourceAsListOfString(fileName: String, separator: String): List<String> =
+            resourceAsText(fileName).split(separator)
+
     fun resourceAsListOfInt(fileName: String): List<Int> =
         resourceAsListOfString(fileName).map { it.toInt() }
 

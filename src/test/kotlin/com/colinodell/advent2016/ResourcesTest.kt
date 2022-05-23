@@ -63,6 +63,13 @@ class ResourcesTest {
         }
 
         @Test
+        fun `reads list as Strings with separators`() {
+            assertThat(resourceAsListOfString("read_file_test_csv.txt", ", "))
+                .hasSize(3)
+                .containsExactly("A1", "B2", "B3")
+        }
+
+        @Test
         fun `reads lines as Ints`() {
             assertThat(resourceAsListOfInt("read_file_test_1.txt"))
                     .hasSize(3)
