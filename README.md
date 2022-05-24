@@ -1,7 +1,7 @@
 ## Advent of Code 2016 Solutions in Kotlin
 
-[![license](https://img.shields.io/github/license/colinodell/advent-2016-kotlin)]()
-[![Build](https://github.com/colinodell/advent-2016-kotlin/actions/workflows/build.yml/badge.svg)](https://github.com/colinodell/advent-2016-kotlin/actions/workflows/build.yml)
+[![license](https://img.shields.io/github/license/colinodell/advent-2016)]()
+[![Build](https://github.com/colinodell/advent-2016/actions/workflows/build.yml/badge.svg)](https://github.com/colinodell/advent-2016/actions/workflows/build.yml)
 
 This repo is my personal attempt at solving the [Advent of Code 2016](http://adventofcode.com/2016) set of problems with the Kotlin programming language.
 
