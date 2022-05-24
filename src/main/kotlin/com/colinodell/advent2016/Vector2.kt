@@ -9,3 +9,5 @@ data class Vector2 (val x: Int, val y: Int) {
 
     fun manhattanDistance() = abs(x) + abs(y)
 }
+
+typealias Grid<T> = Map<Vector2, T>
