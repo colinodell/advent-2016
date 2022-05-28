@@ -86,5 +86,43 @@ class Day11 (private val input: List<String>) {
 
             return true
         }
+
+        val hashString: String by lazy {
+            var hash = currentFloor.toString()
+
+            for ((floor, items) in items) {
+                // Find pairs of generators and compatible microchips
+                val generators = items.filter { it.endsWith("generator") }.map { it.replace(" generator", "") }.toSet()
+                val microchips = items.filter { it.endsWith("microchip") }.map { it.replace("-compatible microchip", "") }.toSet()
+                val pairs = generators.intersect(microchips)
+
+                val remainingItems = items.toSortedSet()
+
+                // Remove any items that start with any pair prefix
+                for (prefix in pairs) {
+                    remainingItems.removeIf { it.startsWith(prefix) }
+                }
+
+                // Add the remaining items to the hash
+                hash += "|floor-$floor-pairs-${pairs.size}-${remainingItems.joinToString(",")}"
+            }
+
+            hash
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as State
+
+            if (currentFloor != other.currentFloor) return false
+
+            return hashString == other.hashString
+        }
+
+        override fun hashCode(): Int {
+            return hashString.hashCode()
+        }
     }
 }
