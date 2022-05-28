@@ -6,13 +6,13 @@ class Day11 (private val input: List<String>) {
         val rgx = Regex("(\\w+(?: generator|-compatible microchip))")
         val floors = input.map { rgx.findAll(it).map { it.groupValues[1] }.toList() }
 
-        val start = State(0, floors.mapIndexed { i, f -> i to f.toMutableSet() }.toMap())
+        val start = State(0, floors.mapIndexed { i, f -> i to f.toSet() }.toMap())
 
         val end = State(3, mapOf(
-            0 to mutableSetOf(),
-            1 to mutableSetOf(),
-            2 to mutableSetOf(),
-            3 to floors.flatten().toMutableSet(),
+            0 to setOf(),
+            1 to setOf(),
+            2 to setOf(),
+            3 to floors.flatten().toSet(),
         ))
 
         val generator = fun(state: State) = state.generateNextStates()
@@ -21,33 +21,52 @@ class Day11 (private val input: List<String>) {
         return AStar(start, end, generator, h).size - 1
     }
 
-    private data class State(val currentFloor: Int, val items: Map<Int, MutableSet<String>>) {
-        fun generateNextStates() = generateAllPossibleNextStates().filter { it.isValid() }.toList()
+    private data class State(val currentFloor: Int, val items: Map<Int, Set<String>>) {
+        fun generateNextStates() = generateAllPossibleNextStates().toSet()
 
         private fun generateAllPossibleNextStates() = sequence {
-            val nextPossibleFloors = (0..3).filter { it == currentFloor + 1 || it == currentFloor - 1 }
+            val itemsExistOnLowerFloors = items.filterKeys { it < currentFloor }.values.any { it.isNotEmpty() }
+            val nextPossibleFloors = (0..3).filter { it == currentFloor + 1 || (it == currentFloor - 1 && itemsExistOnLowerFloors) }
 
-            // For each possible floor
             for (nextFloor in nextPossibleFloors) {
-                // Taking 1 item:
-                for (item in items[currentFloor]!!.toList()) {
-                    val newItems = items.toMutableMap().mapValues { it.value.toMutableSet() }
-                    newItems[currentFloor]!!.remove(item)
-                    newItems[nextFloor]!!.add(item)
-                    yield(State(nextFloor, newItems))
+                // Optimization: If we're going up, bring two items if we can, instead of one
+                if (nextFloor > currentFloor) {
+                    val twoItemMoves = generateTwoItemMoves(nextFloor)
+                    if (twoItemMoves.isNotEmpty()) {
+                        yieldAll(twoItemMoves)
+                    } else {
+                        yieldAll(generateSingleItemMoves(nextFloor))
+                    }
                 }
 
-                // Taking 2 items:
-                for (pair in items[currentFloor]!!.permutationPairs()) {
-                    val newItems = items.toMutableMap().mapValues { it.value.toMutableSet() }
-                    newItems[currentFloor]!!.remove(pair.first)
-                    newItems[currentFloor]!!.remove(pair.second)
-                    newItems[nextFloor]!!.add(pair.first)
-                    newItems[nextFloor]!!.add(pair.second)
-                    yield(State(nextFloor, newItems))
+                // Optimization: If we're going down, bring one item if we can, instead of two
+                else {
+                    val singleItemMoves = generateSingleItemMoves(nextFloor)
+                    if (singleItemMoves.isNotEmpty()) {
+                        yieldAll(singleItemMoves)
+                    } else {
+                        yieldAll(generateTwoItemMoves(nextFloor))
+                    }
                 }
             }
         }
+
+        private fun generateSingleItemMoves(nextFloor: Int): List<State> =
+            items[currentFloor]!!.toList().map { item ->
+                val newItems = items.toMutableMap().mapValues { it.value.toMutableSet() }
+                newItems[currentFloor]!!.remove(item)
+                newItems[nextFloor]!!.add(item)
+                State(nextFloor, newItems)
+            }.filter { it.isValid() }
+
+        private fun generateTwoItemMoves(nextFloor: Int): List<State> = items[currentFloor]!!.permutationPairs().map { pair ->
+            val newItems = items.toMutableMap().mapValues { it.value.toMutableSet() }
+            newItems[currentFloor]!!.remove(pair.first)
+            newItems[currentFloor]!!.remove(pair.second)
+            newItems[nextFloor]!!.add(pair.first)
+            newItems[nextFloor]!!.add(pair.second)
+            State(nextFloor, newItems)
+        }.filter { it.isValid() }.toList()
 
         fun isValid(): Boolean {
             for (itemsOnFloor in items.values) {
