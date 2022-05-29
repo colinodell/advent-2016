@@ -1,8 +1,5 @@
 package com.colinodell.advent2016
 
-import java.math.BigInteger
-import java.security.MessageDigest
-
 class Day05 (private val input: String) {
     fun solvePart1(): String = generateInterestingHashes()
         .take(8)
@@ -27,12 +24,6 @@ class Day05 (private val input: String) {
             }
             i++
         }
-    }
-
-    private fun md5(str: String): String {
-        val md = MessageDigest.getInstance("MD5")
-        val bigInt = BigInteger(1, md.digest(str.toByteArray(Charsets.UTF_8)))
-        return String.format("%032x", bigInt)
     }
 }
 

@@ -1,5 +1,7 @@
 package com.colinodell.advent2016
 
+import java.math.BigInteger
+import java.security.MessageDigest
 import java.util.*
 
 class SearchResult<T> (val found: Boolean, val path: Collection<T>, val seen: Set<T>) {
@@ -50,4 +52,11 @@ fun <T> AStar(start: T, goal: T, generateNextStates: (T) -> Collection<T>, heuri
     }
 
     return SearchResult(false, emptyList(), gScore.keys)
+}
+
+private val md5Digester = MessageDigest.getInstance("MD5")
+
+fun md5(str: String): String {
+    val bigInt = BigInteger(1, md5Digester.digest(str.toByteArray(Charsets.US_ASCII)))
+    return String.format("%032x", bigInt)
 }
