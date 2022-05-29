@@ -32,4 +32,11 @@ class Vector2Test {
         val vector = Vector2(1, -2)
         assertThat(vector.manhattanDistance()).isEqualTo(3)
     }
+
+    @Test
+    fun `Manhattan Distance between two points`() {
+        val vector1 = Vector2(1, -2)
+        val vector2 = Vector2(4, 6)
+        assertThat(vector1.manhattanDistance(vector2)).isEqualTo(11)
+    }
 }

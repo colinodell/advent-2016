@@ -18,7 +18,7 @@ class Day11 (private val input: List<String>) {
         val generator = fun(state: State) = state.generateNextStates()
         val h = fun(state: State) = (state.items[2]!!.size * 4) + (state.items[1]!!.size * 6) + (state.items[0]!!.size * 8)
 
-        return AStar(start, end, generator, h).size - 1
+        return AStar(start, end, generator, h).distance
     }
 
     private data class State(val currentFloor: Int, val items: Map<Int, Set<String>>) {
