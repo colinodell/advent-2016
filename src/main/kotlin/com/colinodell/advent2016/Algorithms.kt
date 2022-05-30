@@ -4,11 +4,17 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.*
 
-class SearchResult<T> (val found: Boolean, val path: Collection<T>, val seen: Set<T>) {
+class SearchResult<T> (val end: T?, val path: Collection<T>, val seen: Set<T>) {
+    val found = end != null
     val distance = path.size - 1
 }
 
-fun <T> AStar(start: T, goal: T, generateNextStates: (T) -> Collection<T>, heuristic: (T) -> Int, maxDistance: Int = Int.MAX_VALUE): SearchResult<T> {
+fun <T> AStar(start: T, goal: T, generateNextStates: (T) -> Sequence<T>, heuristic: (T) -> Int = {0}, maxDistance: Int = Int.MAX_VALUE): SearchResult<T> {
+    val reachedGoal: (T) -> Boolean = { it == goal }
+    return AStar(start, reachedGoal, generateNextStates, heuristic, maxDistance)
+}
+
+fun <T> AStar(start: T, reachedGoal: (T) -> Boolean, generateNextStates: (T) -> Sequence<T>, heuristic: (T) -> Int = {0}, maxDistance: Int = Int.MAX_VALUE): SearchResult<T> {
     val gScore = mutableMapOf(start to 0)
     val fScore = mutableMapOf(start to heuristic(start))
 
@@ -18,18 +24,19 @@ fun <T> AStar(start: T, goal: T, generateNextStates: (T) -> Collection<T>, heuri
     val cameFrom = mutableMapOf<T, T>()
 
     while (openSet.isNotEmpty()) {
-        var current = openSet.poll()
-        if (current == goal) {
+        val current = openSet.poll()
+        if (reachedGoal(current)) {
             // Reconstruct path
-            val totalPath = mutableListOf(current)
-            while (cameFrom.containsKey(current)) {
-                current = cameFrom[current]!!
-                totalPath.add(current)
+            var previous = current
+            val totalPath = mutableListOf(previous)
+            while (cameFrom.containsKey(previous)) {
+                previous = cameFrom[previous]!!
+                totalPath.add(previous)
             }
 
             totalPath.reverse()
 
-            return SearchResult(true, totalPath, gScore.keys)
+            return SearchResult(current, totalPath, gScore.keys)
         }
 
         for (neighbor in generateNextStates(current)) {
@@ -51,7 +58,20 @@ fun <T> AStar(start: T, goal: T, generateNextStates: (T) -> Collection<T>, heuri
         }
     }
 
-    return SearchResult(false, emptyList(), gScore.keys)
+    return SearchResult(null, emptyList(), gScore.keys)
+}
+
+fun <T> DFS_all(start: T, reachedGoal: (T) -> Boolean, generateNextMoves: (T) -> Sequence<T>) = sequence {
+    val s = mutableListOf(start)
+    while (s.isNotEmpty()) {
+        val next = s.first()
+        s.removeAt(0)
+        if (reachedGoal(next)) {
+            yield(next)
+        } else {
+            s.addAll(generateNextMoves(next))
+        }
+    }
 }
 
 private val md5Digester = MessageDigest.getInstance("MD5")

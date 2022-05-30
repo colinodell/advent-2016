@@ -22,7 +22,7 @@ class Day11 (private val input: List<String>) {
     }
 
     private data class State(val currentFloor: Int, val items: Map<Int, Set<String>>) {
-        fun generateNextStates() = generateAllPossibleNextStates().toSet()
+        fun generateNextStates() = generateAllPossibleNextStates()
 
         private fun generateAllPossibleNextStates() = sequence {
             val itemsExistOnLowerFloors = items.filterKeys { it < currentFloor }.values.any { it.isNotEmpty() }
@@ -51,7 +51,7 @@ class Day11 (private val input: List<String>) {
             }
         }
 
-        private fun generateSingleItemMoves(nextFloor: Int): List<State> =
+        private fun generateSingleItemMoves(nextFloor: Int): Collection<State> =
             items[currentFloor]!!.toList().map { item ->
                 val newItems = items.toMutableMap().mapValues { it.value.toMutableSet() }
                 newItems[currentFloor]!!.remove(item)
@@ -59,7 +59,7 @@ class Day11 (private val input: List<String>) {
                 State(nextFloor, newItems)
             }.filter { it.isValid() }
 
-        private fun generateTwoItemMoves(nextFloor: Int): List<State> = items[currentFloor]!!.permutationPairs().map { pair ->
+        private fun generateTwoItemMoves(nextFloor: Int): Collection<State> = items[currentFloor]!!.permutationPairs().map { pair ->
             val newItems = items.toMutableMap().mapValues { it.value.toMutableSet() }
             newItems[currentFloor]!!.remove(pair.first)
             newItems[currentFloor]!!.remove(pair.second)
