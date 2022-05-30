@@ -9,3 +9,10 @@ fun <T> Iterable<T>.permutationPairs(): Sequence<Pair<T, T>> = sequence {
         }
     }
 }
+
+fun <T> Sequence<Pair<T,T>>.includingReversePairs(): Sequence<Pair<T,T>> = sequence {
+    forEach {
+        yield(Pair(it.first, it.second))
+        yield(Pair(it.second, it.first))
+    }
+}
