@@ -19,3 +19,15 @@ data class Vector2(val x: Int, val y: Int) {
 }
 
 typealias Grid<T> = Map<Vector2, T>
+
+fun <T> Grid<T>.neighborsOf(point: Vector2): Map<Vector2, T> {
+    return point.neighbors().filter { containsKey(it) }.associateWith { get(it)!! }
+}
+
+fun List<String>.toGrid(): Grid<Char> = mutableMapOf<Vector2, Char>().apply {
+    forEachIndexed { y, line ->
+        line.forEachIndexed { x, c ->
+            put(Vector2(x, y), c)
+        }
+    }
+}
