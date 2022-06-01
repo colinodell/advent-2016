@@ -14,6 +14,11 @@ class AssembunnyComputer(assembly: List<String>) {
     private var pos: Int = 0
 
     fun execute(initialRegisters: Map<String, Int> = mapOf()) {
+        // Consume the sequence until the program halts
+        executeYieldingOutputs(initialRegisters).toList()
+    }
+
+    fun executeYieldingOutputs(initialRegisters: Map<String, Int> = mapOf()) = sequence {
         memory = program.toMutableList()
         registers = initialRegisters.toMutableMap()
         pos = 0
@@ -53,6 +58,9 @@ class AssembunnyComputer(assembly: List<String>) {
                             "cpy" -> targetInstruction.operation = "jnz"
                             else -> throw InvalidArgumentException(targetInstruction.operation)
                         }
+                    }
+                    "out" -> {
+                        yield(getValue(instruction.args.first()))
                     }
                 }
             } catch (e: Exception) {
