@@ -5,7 +5,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.6.0"
+    kotlin("jvm") version "1.6.20"
     id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
 }
 
@@ -14,9 +14,9 @@ repositories {
 }
 
 dependencies {
-    testApi("org.junit.jupiter:junit-jupiter-engine:5.8.1")
-    testImplementation("org.assertj:assertj-core:3.21.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.1.0")
+    testApi("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testImplementation("org.assertj:assertj-core:3.22.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
 }
 
 tasks {
