@@ -2,19 +2,19 @@ package com.colinodell.advent2016
 
 import java.math.BigInteger
 import java.security.MessageDigest
-import java.util.*
+import java.util.PriorityQueue
 
 class SearchResult<T> (val end: T?, val path: Collection<T>, val seen: Set<T>) {
     val found = end != null
     val distance = path.size - 1
 }
 
-fun <T> AStar(start: T, goal: T, generateNextStates: (T) -> Sequence<T>, heuristic: (T) -> Int = {0}, maxDistance: Int = Int.MAX_VALUE): SearchResult<T> {
+fun <T> AStar(start: T, goal: T, generateNextStates: (T) -> Sequence<T>, heuristic: (T) -> Int = { 0 }, maxDistance: Int = Int.MAX_VALUE): SearchResult<T> {
     val reachedGoal: (T) -> Boolean = { it == goal }
     return AStar(start, reachedGoal, generateNextStates, heuristic, maxDistance)
 }
 
-fun <T> AStar(start: T, reachedGoal: (T) -> Boolean, generateNextStates: (T) -> Sequence<T>, heuristic: (T) -> Int = {0}, maxDistance: Int = Int.MAX_VALUE): SearchResult<T> {
+fun <T> AStar(start: T, reachedGoal: (T) -> Boolean, generateNextStates: (T) -> Sequence<T>, heuristic: (T) -> Int = { 0 }, maxDistance: Int = Int.MAX_VALUE): SearchResult<T> {
     val gScore = mutableMapOf(start to 0)
     val fScore = mutableMapOf(start to heuristic(start))
 

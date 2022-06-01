@@ -1,6 +1,6 @@
 package com.colinodell.advent2016
 
-class Day08 (input: List<String>, width: Int, height: Int) {
+class Day08(input: List<String>, width: Int, height: Int) {
     private val display = Display(width, height)
 
     init {
@@ -16,7 +16,7 @@ class Day08 (input: List<String>, width: Int, height: Int) {
 
         fun process(line: String) {
             val split = line.split(" ")
-            when(split[0]) {
+            when (split[0]) {
                 "rect" -> {
                     val (a, b) = split[1].split("x").map { it.toInt() }
                     for (i in 0 until a) {

@@ -1,6 +1,6 @@
 package com.colinodell.advent2016
 
-class Day03 (private val input: String) {
+class Day03(private val input: String) {
     fun solvePart1() = parsePart1(input).count { it.isValid() }
 
     fun solvePart2() = parsePart2(input).count { it.isValid() }
@@ -25,6 +25,6 @@ class Day03 (private val input: String) {
     }
 
     private class Triangle(val a: Int, val b: Int, val c: Int) {
-        fun isValid() =  a + b > c && a + c > b && b + c > a
+        fun isValid() = a + b > c && a + c > b && b + c > a
     }
 }

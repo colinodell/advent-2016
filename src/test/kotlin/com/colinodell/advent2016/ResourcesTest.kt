@@ -45,11 +45,13 @@ class ResourcesTest {
         @Test
         fun `reads file as-is into one String`() {
             assertThat(resourceAsText("read_file_test_1.txt"))
-                .isEqualTo("""
+                .isEqualTo(
+                    """
                     1
                     2
                     3
-                """.trimIndent())
+                    """.trimIndent()
+                )
         }
     }
 
@@ -72,8 +74,8 @@ class ResourcesTest {
         @Test
         fun `reads lines as Ints`() {
             assertThat(resourceAsListOfInt("read_file_test_1.txt"))
-                    .hasSize(3)
-                    .containsExactly(1, 2, 3)
+                .hasSize(3)
+                .containsExactly(1, 2, 3)
         }
 
         @Test
@@ -90,5 +92,4 @@ class ResourcesTest {
             }.isInstanceOf(IllegalArgumentException::class.java)
         }
     }
-
 }

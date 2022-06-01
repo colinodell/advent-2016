@@ -1,6 +1,6 @@
 package com.colinodell.advent2016
 
-class Day11 (private val input: List<String>) {
+class Day11(private val input: List<String>) {
     fun solve(): Int {
         // Parse the input
         val rgx = Regex("(\\w+(?: generator|-compatible microchip))")
@@ -8,12 +8,15 @@ class Day11 (private val input: List<String>) {
 
         val start = State(0, floors.mapIndexed { i, f -> i to f.toSet() }.toMap())
 
-        val end = State(3, mapOf(
-            0 to setOf(),
-            1 to setOf(),
-            2 to setOf(),
-            3 to floors.flatten().toSet(),
-        ))
+        val end = State(
+            3,
+            mapOf(
+                0 to setOf(),
+                1 to setOf(),
+                2 to setOf(),
+                3 to floors.flatten().toSet(),
+            )
+        )
 
         val generator = fun(state: State) = state.generateNextStates()
         val h = fun(state: State) = (state.items[2]!!.size * 4) + (state.items[1]!!.size * 6) + (state.items[0]!!.size * 8)

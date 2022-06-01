@@ -1,9 +1,9 @@
 package com.colinodell.advent2016
 
 class Day21(private val operations: List<String>) {
-    fun solvePart1(password: String) = operations.fold(password) { text, operation -> perform(operation, text)}
+    fun solvePart1(password: String) = operations.fold(password) { text, operation -> perform(operation, text) }
 
-    fun solvePart2(password: String) = operations.reversed().fold(password) { text, operation -> perform(operation, text, reverse = true)}
+    fun solvePart2(password: String) = operations.reversed().fold(password) { text, operation -> perform(operation, text, reverse = true) }
 
     private fun perform(operation: String, text: String, reverse: Boolean = false): String {
         val match = Regex("""(.+?) (\w)\b(?: .+ (\w))?""").find(operation)!!.groupValues

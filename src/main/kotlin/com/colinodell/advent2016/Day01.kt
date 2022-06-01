@@ -1,7 +1,5 @@
 package com.colinodell.advent2016
 
-import kotlin.math.absoluteValue
-
 class Day01(private val data: List<String>) {
     fun solvePart1() = followInstructions().last().manhattanDistance()
 
@@ -20,7 +18,7 @@ class Day01(private val data: List<String>) {
 
     private fun followInstructions() = sequence {
         var currentPosition = Vector2(0, 0)
-        var currentDirection = 0;
+        var currentDirection = 0
 
         for (instruction in data) {
             val direction = instruction[0]

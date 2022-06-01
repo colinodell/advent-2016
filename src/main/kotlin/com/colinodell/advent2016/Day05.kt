@@ -1,6 +1,6 @@
 package com.colinodell.advent2016
 
-class Day05 (private val input: String) {
+class Day05(private val input: String) {
     fun solvePart1(): String = generateInterestingHashes()
         .take(8)
         .map { it[5] }
@@ -26,4 +26,3 @@ class Day05 (private val input: String) {
         }
     }
 }
-

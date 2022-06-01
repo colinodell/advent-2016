@@ -1,10 +1,11 @@
 package com.colinodell.advent2016
 
 class Day20(val input: List<String>) {
-    private val firewallRules = optimize(input
-        .map { it.split("-") }
-        .map { LongRange(it[0].toLong(), it[1].toLong()) }
-        .sortedBy { it.first }
+    private val firewallRules = optimize(
+        input
+            .map { it.split("-") }
+            .map { LongRange(it[0].toLong(), it[1].toLong()) }
+            .sortedBy { it.first }
     )
 
     fun solvePart1() = firewallRules.first().last.inc()

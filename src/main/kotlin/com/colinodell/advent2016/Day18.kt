@@ -1,6 +1,6 @@
 package com.colinodell.advent2016
 
-class Day18 (startingRow: String) {
+class Day18(startingRow: String) {
     fun solve(rowCount: Int) = dungeon.map { it.count { it == '.' } }.take(rowCount).sum()
 
     private val dungeon = generateSequence(startingRow) { previousRow ->

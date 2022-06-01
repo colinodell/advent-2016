@@ -37,24 +37,28 @@ class Day08Test {
         @Test
         fun `Matches Sample Data`() {
             val answer = Day08(sample, 7, 3).solvePart2()
-            assertThat(answer.trim()).isEqualTo("""
+            assertThat(answer.trim()).isEqualTo(
+                """
                 .#..#.#
                 #.#....
                 .#.....
-            """.trimIndent())
+                """.trimIndent()
+            )
         }
 
         @Test
         fun `Matches Actual Data`() {
             val answer = Day08(resourceAsListOfString("day08.txt"), 50, 6).solvePart2()
-            assertThat(answer.trim()).isEqualTo("""
+            assertThat(answer.trim()).isEqualTo(
+                """
                 ####.####.#..#.####..###.####..##...##..###...##..
                 ...#.#....#..#.#....#....#....#..#.#..#.#..#.#..#.
                 ..#..###..####.###..#....###..#..#.#....#..#.#..#.
                 .#...#....#..#.#.....##..#....#..#.#.##.###..#..#.
                 #....#....#..#.#.......#.#....#..#.#..#.#....#..#.
                 ####.#....#..#.#....###..#.....##...###.#.....##..
-            """.trimIndent())
+                """.trimIndent()
+            )
         }
     }
 }

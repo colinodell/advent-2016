@@ -63,6 +63,4 @@ class AssembunnyComputer(assembly: List<String>) {
     }
 
     private fun getValue(arg: String) = arg.toIntOrNull() ?: registers.getOrElse(arg) { throw InvalidArgumentException(arg) }
-
-
 }

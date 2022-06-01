@@ -21,5 +21,5 @@ class Day17(private val input: String) {
         return nextMoves.asSequence()
     }
 
-    private data class State (val pos: Vector2, val path: String = "")
+    private data class State(val pos: Vector2, val path: String = "")
 }

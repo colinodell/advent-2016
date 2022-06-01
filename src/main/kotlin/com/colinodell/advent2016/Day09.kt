@@ -2,7 +2,7 @@ package com.colinodell.advent2016
 
 import java.math.BigInteger
 
-class Day09 (private val input: String) {
+class Day09(private val input: String) {
     fun solvePart1() = calculateDecompressedLengthV1(input)
     fun solvePart2() = calculateDecompressedLengthV2(input)
 

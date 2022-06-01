@@ -21,10 +21,10 @@ class Day17Test {
             @JvmStatic
             fun getData(): List<Arguments> {
                 return listOf(
-                        Arguments.of("ihgpwlah", "DDRRRD"),
-                        Arguments.of("kglvqrro", "DDUDRLRRUDRD"),
-                        Arguments.of("ulqzkmiv", "DRURDRUDDLLDLUURRDULRLDUUDDDRR"),
-                        Arguments.of("dmypynyp", "RDRDUDLRDR"),
+                    Arguments.of("ihgpwlah", "DDRRRD"),
+                    Arguments.of("kglvqrro", "DDUDRLRRUDRD"),
+                    Arguments.of("ulqzkmiv", "DRURDRUDDLLDLUURRDULRLDUUDDDRR"),
+                    Arguments.of("dmypynyp", "RDRDUDLRDR"),
                 )
             }
         }

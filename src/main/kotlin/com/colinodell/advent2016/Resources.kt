@@ -15,10 +15,10 @@ internal object Resources {
         File(fileName.toURI()).readText().trimEnd('\n')
 
     fun resourceAsListOfString(fileName: String): List<String> =
-            File(fileName.toURI()).readLines()
+        File(fileName.toURI()).readLines()
 
     fun resourceAsListOfString(fileName: String, separator: String): List<String> =
-            resourceAsText(fileName).split(separator)
+        resourceAsText(fileName).split(separator)
 
     fun resourceAsListOfInt(fileName: String): List<Int> =
         resourceAsListOfString(fileName).map { it.toInt() }
@@ -27,6 +27,5 @@ internal object Resources {
         resourceAsListOfString(fileName).map { it.toLong() }
 
     private fun String.toURI(): URI =
-            Resources.javaClass.classLoader.getResource(this)?.toURI() ?: throw IllegalArgumentException("Cannot find Resource: $this")
+        Resources.javaClass.classLoader.getResource(this)?.toURI() ?: throw IllegalArgumentException("Cannot find Resource: $this")
 }
-

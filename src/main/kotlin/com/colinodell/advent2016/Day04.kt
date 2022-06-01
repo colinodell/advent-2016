@@ -1,11 +1,11 @@
 package com.colinodell.advent2016
 
-class Day04 (val input: List<String>) {
-   fun solvePart1(): Int {
+class Day04(val input: List<String>) {
+    fun solvePart1(): Int {
         return input.map { Room.fromString(it) }
             .filter { it.isReal }
             .sumOf { it.sectorId }
-   }
+    }
 
     fun solvePart2(): Int {
         return input.map { Room.fromString(it) }

@@ -1,6 +1,6 @@
 package com.colinodell.advent2016
 
-class Day07 (private val input: List<String>) {
+class Day07(private val input: List<String>) {
     fun solvePart1() = input.map(::IPv7).count { it.supportsTLS() }
     fun solvePart2() = input.map(::IPv7).count { it.supportsSSL() }
 

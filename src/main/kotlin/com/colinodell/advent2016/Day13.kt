@@ -1,9 +1,9 @@
 package com.colinodell.advent2016
 
-class Day13 (private val input: Int) {
+class Day13(private val input: Int) {
     fun solvePart1(target: Vector2) = AStar(Vector2(1, 1), target, ::calculateOpenSpaces, { it.manhattanDistance(target) }).distance
 
-    fun solvePart2() = AStar(Vector2(1, 1), Vector2(-1, -1), ::calculateOpenSpaces, {0}, 50).seen.size
+    fun solvePart2() = AStar(Vector2(1, 1), Vector2(-1, -1), ::calculateOpenSpaces, { 0 }, 50).seen.size
 
     private fun calculateOpenSpaces(current: Vector2): Sequence<Vector2> {
         return current.neighbors().filter {

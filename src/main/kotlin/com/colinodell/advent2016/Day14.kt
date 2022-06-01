@@ -13,7 +13,7 @@ class Day14(private val salt: String) {
             .last()
             .hash.index
 
-    private var hashCache = mapOf<Int,String>()
+    private var hashCache = mapOf<Int, String>()
 
     private fun generateHashes(startingAt: Int = 1, stretchFactor: Int) = sequence {
         var i = startingAt

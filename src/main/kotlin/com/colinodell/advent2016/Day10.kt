@@ -1,6 +1,6 @@
 package com.colinodell.advent2016
 
-class Day10 (private val input: List<String>) {
+class Day10(private val input: List<String>) {
     fun solvePart1() = Factory(input).runUntilBotHas(listOf(61, 17))
     fun solvePart2(): Int {
         val f = Factory(input)
@@ -75,14 +75,14 @@ class Day10 (private val input: List<String>) {
         fun execute(factory: Factory): Boolean
     }
 
-    private class ValueAssignmentInstruction(val bot: String, val value: Int): Instruction {
+    private class ValueAssignmentInstruction(val bot: String, val value: Int) : Instruction {
         override fun execute(factory: Factory): Boolean {
             factory.getContainer(bot).take(value)
             return true
         }
     }
 
-    private class OutputInstruction(val bot: String, val lowTarget: String, val highTarget: String): Instruction {
+    private class OutputInstruction(val bot: String, val lowTarget: String, val highTarget: String) : Instruction {
         override fun execute(factory: Factory): Boolean {
             val container = factory.getContainer(bot)
 
